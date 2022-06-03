@@ -17,5 +17,10 @@ public class DemoApplication {
 		return "Hello World";
 	}
 
+	@GetMapping("Load3")
+	public String load2() {
+		return "hej";
+	}
+
 
 }
