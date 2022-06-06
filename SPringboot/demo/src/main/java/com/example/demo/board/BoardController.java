@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.imageio.IIOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RestController
@@ -37,6 +39,25 @@ public class BoardController {
         }
         return file;
 
+
+    }
+    @GetMapping(value = "loads/{name}")
+    public String loadBoard(@PathVariable String name){
+        String file=null;
+        try {
+            file=new BoardDataLayer().jsonToString(name);
+        }catch (NullPointerException e){
+            System.out.println("Cant find the given file");
+        } catch (IOException e) {
+            System.out.println("IO exception");
+        }catch (URISyntaxException e){
+            System.out.println("URI syntax exception");
+        }finally {
+            System.out.println("The file was not loaded properly and will therefore return null");
+        }
+
+
+        return file;
 
     }
 
