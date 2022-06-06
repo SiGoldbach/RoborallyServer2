@@ -16,6 +16,10 @@ public class DemoApplication {
 	public String hello(){
 		return "Hello World";
 	}
+	@GetMapping("2")
+	public String hello2(){
+		return "hello2";
+	}
 
 	@GetMapping("Load3")
 	public String load2() {

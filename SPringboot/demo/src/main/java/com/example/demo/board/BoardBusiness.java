@@ -1,4 +1,4 @@
-package Board;
+package com.example.demo.board;
 
 public class BoardBusiness {
 }
