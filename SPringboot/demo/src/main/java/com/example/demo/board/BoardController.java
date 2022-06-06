@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 public class BoardController {
     /**
      * Method for getting a specific board, This will be used when starting a game.
-     *
+     *Do not use does not return anything of value
      * @param name Name of the board
      * @return A inputStream used ins loadGame method.
      */
