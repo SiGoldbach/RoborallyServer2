@@ -1,13 +1,8 @@
 package com.example.demo.board;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.imageio.IIOException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -21,29 +16,19 @@ public class BoardController {
      * Do not use does not return anything of value
      *
      * @param name Name of the board
-     * @return A inputStream used ins loadGame method.
      */
-    @GetMapping(value = "load/{name}")
-    public File load(@PathVariable String name) {
-        System.out.println("File requested: " + name);
-        File file = null;
-        try {
-            file = new BoardDataLayer().getURIFromResourceFolder(name);
-        } catch (FileNotFoundException e) {
-            System.out.println("Could not find the requested file ");
-
-        } catch (URISyntaxException e) {
-            System.out.println("URI exception");
-        }
-
-
-        if (file == null) {
-            System.out.println("Could not get file");
-        }
-        return file;
+    @PostMapping(value = "upload/{name}")
+    public void saveBoard(@PathVariable String name, @RequestBody String board) {
+        File file = new File(getClass().getClassLoader().getResource(name).getFile());
+        if (file.canWrite()) ;
+        System.out.println("Getting to the upload");
+        System.out.println("name: " + name);
+        System.out.println("board: " + board);
 
 
     }
+
+
 
     @GetMapping(value = "loads/{name}")
     public String loadBoard(@PathVariable String name) {
@@ -74,9 +59,9 @@ public class BoardController {
     public List<String> getBoards() {
         List<String> boards = new ArrayList<>();
         try {
-        String RESOURCEFOLDER = "SPringboot/demo/src/main/resources/boards";
-        File folder = new File(RESOURCEFOLDER);
-        String[] listOfFiles = folder.list();
+            String RESOURCEFOLDER = "SPringboot/demo/src/main/resources/boards";
+            File folder = new File(RESOURCEFOLDER);
+            String[] listOfFiles = folder.list();
             for (int i = 0; i < listOfFiles.length; i++) {
                 listOfFiles[i] = listOfFiles[i].substring(0, listOfFiles[i].length() - 5);
             }
@@ -85,9 +70,6 @@ public class BoardController {
         } catch (NullPointerException e) {
             System.out.println("Could not find the folder");
         }
-
         return boards;
     }
 }
-
-

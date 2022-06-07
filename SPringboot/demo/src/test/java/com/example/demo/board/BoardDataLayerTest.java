@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,5 +29,10 @@ class BoardDataLayerTest {
         if (fTest == null) {
             fail("Cant find the file ");
         }
+    }
+    @Test
+    void safeFile() throws IOException {
+        BoardDataLayer test=new BoardDataLayer();
+        test.CreateAndWriteToNewFile("hat","board");
     }
 }
