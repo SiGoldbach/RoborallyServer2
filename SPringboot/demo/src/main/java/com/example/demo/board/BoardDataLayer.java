@@ -44,5 +44,8 @@ public class BoardDataLayer {
 
 
     }
+   //Insert data into the file from BoardController boardContent
+    public void saveBoard(String board) {
 
+    }
 }
