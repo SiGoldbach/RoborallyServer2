@@ -52,8 +52,6 @@ public class BoardController {
             System.out.println("IO exception");
         }catch (URISyntaxException e){
             System.out.println("URI syntax exception");
-        }finally {
-            System.out.println("The file was not loaded properly and will therefore return null");
         }
 
 
