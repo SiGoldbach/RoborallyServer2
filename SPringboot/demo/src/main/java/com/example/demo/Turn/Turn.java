@@ -3,7 +3,7 @@ package com.example.demo.Turn;
 import java.util.List;
 
 public class Turn {
-    public List<cardsList> listOfPlayers;
+    public List<List<CardTypes>> listOfPlayers;
 
 
     public class cardsList {

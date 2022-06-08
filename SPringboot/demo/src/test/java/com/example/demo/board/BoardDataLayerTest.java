@@ -14,9 +14,10 @@ class BoardDataLayerTest {
     /**
      * This method is for testing The "Database access" aka finding a file in the resource folder properly,
      * if test fails there is probably something wrong with this database access
+     *
      * @throws URISyntaxException Luckily we have not had this exception yet but if it does not activate on this test,
-     * it probably will not be thrown on other request since the syntax is completely the same just different filenames
-     * //Sebastian Goldbach
+     *                            it probably will not be thrown on other request since the syntax is completely the same just different filenames
+     *                            //Sebastian Goldbach
      */
     @Test
     void getURIFromResourceFolder() throws URISyntaxException {
@@ -31,8 +32,9 @@ class BoardDataLayerTest {
             fail("Cant find the file ");
         }
     }
+
     @Test
-    //Method for saving a board as a json file to the resource folder boards.
+        //Method for saving a board as a json file to the resource folder boards.
     void saveBoard() throws IOException, URISyntaxException {
         BoardDataLayer test = new BoardDataLayer();
         String RESOURCEFOLDER = "SPringboot/demo/src/main/resources/boards";
@@ -50,4 +52,11 @@ class BoardDataLayerTest {
             }
         }
     }
+
+    @Test
+    public void writeToFile() throws IOException {
+        new BoardDataLayer().CreateAndWriteToNewFile("src/main/resources/boards/TestFile.json","BigMon");
+
+    }
+
 }

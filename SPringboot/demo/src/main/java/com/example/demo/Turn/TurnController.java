@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "turn")
 public class TurnController {
+    @GetMapping(value = "init/{playerAmountInGame}")
+    public void initializer(@PathVariable String PlayerAmountInGame){
+
+
+    }
 
     @PostMapping(value = "{playerId}")
     public void sendMoves(@PathVariable String playerId){

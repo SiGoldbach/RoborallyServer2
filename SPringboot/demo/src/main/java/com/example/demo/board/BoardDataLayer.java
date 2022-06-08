@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Component
 public class BoardDataLayer {
@@ -28,6 +28,12 @@ public class BoardDataLayer {
     }
 
     public void CreateAndWriteToNewFile(String name, String board) throws IOException {
+        Path path = Path.of(name);
+        if(Files.isWritable(path)){
+           Files.writeString(path,board, StandardCharsets.UTF_8);
+       }else {
+            System.out.println("Cannot find file ");
+        }
 
 
     }
