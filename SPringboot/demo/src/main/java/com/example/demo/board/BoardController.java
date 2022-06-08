@@ -3,6 +3,7 @@ package com.example.demo.board;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -17,19 +18,6 @@ public class BoardController {
      *
      * @param name Name of the board
      */
-    @PostMapping(value = "upload/{name}")
-    public void saveBoard(@PathVariable String name, @RequestBody String board) {
-        File file = new File(getClass().getClassLoader().getResource(name).getFile());
-        if (file.canWrite()) ;
-        System.out.println("Getting to the upload");
-        System.out.println("name: " + name);
-        System.out.println("board: " + board);
-
-
-    }
-
-
-
     @GetMapping(value = "loads/{name}")
     public String loadBoard(@PathVariable String name) {
         String file = null;
@@ -72,4 +60,12 @@ public class BoardController {
         }
         return boards;
     }
+
+    @PostMapping(value = "/saveboard/{name}")
+    //Create a POST request to save a board to the boards folder.
+    public void saveBoard(@RequestBody String boardContent,@PathVariable String name) throws IOException {
+        boolean file = new File("SPringboot/demo/src/main/resources/boards/" + name + ".json").createNewFile();
+    }
+
+
 }

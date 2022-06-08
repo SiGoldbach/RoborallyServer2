@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -31,8 +32,22 @@ class BoardDataLayerTest {
         }
     }
     @Test
-    void safeFile() throws IOException {
-        BoardDataLayer test=new BoardDataLayer();
-        test.CreateAndWriteToNewFile("hat","board");
+    //Method for saving a board as a json file to the resource folder boards.
+    void saveBoard() throws IOException, URISyntaxException {
+        BoardDataLayer test = new BoardDataLayer();
+        String RESOURCEFOLDER = "SPringboot/demo/src/main/resources/boards";
+        File folder = new File(RESOURCEFOLDER);
+        if (folder.canWrite()) {
+            System.out.println("Getting to the upload");
+            System.out.println("name: TestFile");
+            System.out.println("board: TestBoard");
+            try {
+                FileWriter writer = new FileWriter(folder);
+                writer.write("TestBoard");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
