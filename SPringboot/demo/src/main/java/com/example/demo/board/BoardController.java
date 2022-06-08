@@ -3,7 +3,6 @@ package com.example.demo.board;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class BoardController {
             file = new BoardDataLayer().jsonToString(name);
         } catch (NullPointerException e) {
             System.out.println("Cant find the given file");
+            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("IO exception");
         } catch (URISyntaxException e) {
@@ -63,12 +63,12 @@ public class BoardController {
 
     @PostMapping(value = "/saveboard/{name}")
     //Create a POST request to save a board to the boards folder.
-    public void saveBoard(@RequestBody String boardContent,@PathVariable String name) throws IOException {
+    public void saveBoard(@RequestBody String boardContent, @PathVariable String name) throws IOException, URISyntaxException {
         System.out.println("In saveBoard");
         System.out.println(name);
         System.out.println(boardContent);
-        boolean file = new File("src/main/resources/boards/" + name + ".json").createNewFile();
-        new BoardDataLayer().CreateAndWriteToNewFile("src/main/resources/boards/" + name + ".json",boardContent);
+        System.out.println("src/main/resources/boards/" + name + ".json");
+        new BoardDataLayer().CreateAndWriteToNewFile("SPringboot/demo/src/main/resources/boards/" + name + ".json", boardContent);
     }
 
 

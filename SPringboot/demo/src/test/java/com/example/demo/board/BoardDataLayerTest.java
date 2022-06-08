@@ -54,8 +54,8 @@ class BoardDataLayerTest {
     }
 
     @Test
-    public void writeToFile() throws IOException {
-        new BoardDataLayer().CreateAndWriteToNewFile("src/main/resources/boards/TestFile.json","BigMon");
+    public void writeToFile() throws IOException, URISyntaxException {
+        new BoardDataLayer().CreateAndWriteToNewFile("src/main/resources/boards/File2.json","BigMon");
 
     }
 

@@ -19,6 +19,7 @@ public class BoardDataLayer {
 
     public File getURIFromResourceFolder(String fileName) throws FileNotFoundException, URISyntaxException {
         URL board = getClass().getClassLoader().getResource(BoardFolder + "/" + fileName + ".json");
+        System.out.println(board.getPath());
         if (board == null) {
             throw new FileNotFoundException("File not found");
         }
@@ -27,12 +28,19 @@ public class BoardDataLayer {
 
     }
 
-    public void CreateAndWriteToNewFile(String name, String board) throws IOException {
+    public void CreateAndWriteToNewFile(String name, String board) throws IOException, URISyntaxException {
+        URL pathGenerator=getClass().getClassLoader().getResource(BoardFolder+"/"+name+TYPE);
         Path path = Path.of(name);
-        if(Files.isWritable(path)){
-           Files.writeString(path,board, StandardCharsets.UTF_8);
-       }else {
-            System.out.println("Cannot find file ");
+        try {
+            System.out.println(name);
+            new File(name).createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (Files.isWritable(path)) {
+            Files.writeString(path, board, StandardCharsets.UTF_8);
+        } else {
+            throw new IOException("Can't find the file ");
         }
 
 
@@ -44,13 +52,15 @@ public class BoardDataLayer {
         File file = Paths.get(board.toURI()).toFile();
         System.out.println("line 3");
         String absolutePath = file.getAbsolutePath();
+        System.out.println(file.getAbsolutePath());
         System.out.println("line 4");
 
         return Files.readString(Path.of(absolutePath));
 
 
     }
-   //Insert data into the file from BoardController boardContent
+
+    //Insert data into the file from BoardController boardContent
     public void saveBoard(String board) {
 
     }
