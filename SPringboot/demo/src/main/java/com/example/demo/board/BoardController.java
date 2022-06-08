@@ -64,7 +64,11 @@ public class BoardController {
     @PostMapping(value = "/saveboard/{name}")
     //Create a POST request to save a board to the boards folder.
     public void saveBoard(@RequestBody String boardContent,@PathVariable String name) throws IOException {
-        boolean file = new File("SPringboot/demo/src/main/resources/boards/" + name + ".json").createNewFile();
+        System.out.println("In saveBoard");
+        System.out.println(name);
+        System.out.println(boardContent);
+        boolean file = new File("src/main/resources/boards/" + name + ".json").createNewFile();
+        new BoardDataLayer().CreateAndWriteToNewFile("src/main/resources/boards/" + name + ".json",boardContent);
     }
 
 
