@@ -20,19 +20,8 @@ public class DemoApplication {
 
     @GetMapping
     public String hello() {
-        return "Hello World";
+        return "Connection to server works ";
+
+
     }
-	@GetMapping("2")
-	public String hello2(){
-		return "hello2";
-	}
-
-    @GetMapping("Load3")
-    public String load2() {
-        return "hej";
-    }
-
-
-
-
 }
