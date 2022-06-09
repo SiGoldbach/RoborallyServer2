@@ -10,17 +10,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 @RestController
-@RequestMapping(path="greeting")
-
-public class AnnounceConnectionController {
+@RequestMapping(path="gamehandler")
+public class GameController {
 
     private int gameCounter = -1;
 
     private Games[] myGames = new Games[10];
 
-    @GetMapping(value="/games/{name}")
-    public String saveUser(@RequestBody String data, @PathVariable String name) throws IOException, URISyntaxException {
-        // Data is hosting(true or false)-gamename-username-playercount
+    @GetMapping(value="/connect")
+    public String connectUser(@RequestBody String data) throws IOException, URISyntaxException {
+        // Data is = hosting(true or false)-gamename-username-playercount
         String[] dataArray = data.split("-");
 
         String hosting = dataArray[0];
@@ -49,6 +48,37 @@ public class AnnounceConnectionController {
         returnString.append(returnNumber);
 
         return returnString.toString();
+    }
+
+    @GetMapping(value="/play")
+    public String playGame(@RequestBody String data){
+        // Data is = gamename-gamenumber-playernumber-whatdo-bigdata
+        String[] dataArray = data.split("-");
+
+        String gameName = dataArray[0].toLowerCase();
+        int gameNumber = Integer.parseInt(dataArray[1]);
+        String playerNumber = dataArray[2];
+        String whatdo = dataArray[3];
+
+        String returnString = "ERROR";
+        if(myGames[gameNumber].getGameName().equals(gameName)){
+            Games myGame = myGames[gameNumber];
+            switch(whatdo){
+                case "selectBoard":
+
+                case "playturn":
+                    String boardJson = dataArray[4];
+
+                    if(myGame.getAllLocked()){
+                        myGame.setBoardJson(boardJson);
+                        returnString = "SUCCESS";
+                    }
+                    break;
+                case "refresh":
+            }
+        }
+
+        return returnString;
     }
 }
 

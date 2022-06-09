@@ -4,6 +4,8 @@ public class Games {
     private int totalPlayers;
     private int playerCounter;
 
+    private String boardJson = "";
+
     private String gameName;
     private Player[] gamePlayers;
 
@@ -11,7 +13,7 @@ public class Games {
 
     private boolean allLocked;
     private boolean gameLive;
-    private boolean turnInProgress;
+    private int turnProgress;
 
     Games(int totalPlayers, String username, String gameName){
         gameName = this.gameName;
@@ -31,7 +33,8 @@ public class Games {
         }
     }
 
-    public void setPlayerLocked(){
+    public void setPlayerLocked(int playerNumber, int registerCount){
+        gamePlayers[playerNumber].setLocked(registerCount);
         boolean lockFlag = true;
 
         for(int i = 0; i < totalPlayers; i++){
@@ -40,11 +43,16 @@ public class Games {
             }
         }
 
+        if(lockFlag){
+            turnProgress = 0;
+        }
+
         allLocked = lockFlag;
     }
 
     private void startGame(){
         gameLive = true;
+        turnProgress = -1;
         allLocked = false;
     }
 
@@ -54,5 +62,17 @@ public class Games {
 
     public String getGameName(){
         return gameName;
+    }
+
+    public void setBoardJson(String json){
+        boardJson = json;
+    }
+
+    public String getBoardJson(){
+        return boardJson;
+    }
+
+    public boolean getAllLocked(){
+        return allLocked;
     }
 }
