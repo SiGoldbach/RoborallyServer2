@@ -51,8 +51,10 @@ public class GameController {
 
     @PostMapping(value="/play")
     public String playGame(@RequestBody String data){
-        // Data is = gamename-gamenumber-playernumber-whatdo-bigdata
+        // Data is = gamenumber-playernumber-whatdo-bigdata
         String[] dataArray = data.split("-");
+
+        System.out.println(data);
 
         int gameNumber = Integer.parseInt(dataArray[0]);
         int playerNumber = Integer.parseInt(dataArray[1]);
@@ -63,11 +65,11 @@ public class GameController {
         Games myGame = myGames[gameNumber];
             switch(whatdo){
                 case "playturn":
-                    String playerPos = dataArray[4];
+                    String playerPos = dataArray[3];
                     returnString = myGame.playTurn(playerNumber, playerPos);
                     break;
                 case "lock":
-                    int registersToLock = Integer.parseInt(dataArray[4]);
+                    int registersToLock = Integer.parseInt(dataArray[3]);
                     myGame.setPlayerLocked(playerNumber, registersToLock);
                     break;
                 case "refresh":

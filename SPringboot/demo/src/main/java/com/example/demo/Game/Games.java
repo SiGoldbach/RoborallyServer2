@@ -57,7 +57,7 @@ public class Games {
             playstate = "WaitingForOthersToPlayTurn";
         }
 
-        return playstate + playerPosJson;
+        return playstate + "-" + playerPosJson;
     }
 
     public String playTurn(int playerNumberTurn, String json){
@@ -67,8 +67,8 @@ public class Games {
 
             returnString = "SUCCESS";
 
-            for (int i = totalPlayers; i > -1; i--){
-                if(gamePlayers[i - 1].getNumberOfRegisters() >= turnProgress){
+            for (int i = totalPlayers - 1; i > -1; i--){
+                if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
                     playerWithRegister = i;
                     break;
                 }
@@ -80,7 +80,7 @@ public class Games {
                 boolean playerHas = false;
                 for (int i = 0; i < totalPlayers; i++){
                     if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
-                        playerTurn = i + 1;
+                        playerTurn = i;
                         playerHas = true;
                         break;
                     }
@@ -91,6 +91,14 @@ public class Games {
                         gamePlayers[i].setLocked(0, false);
                     }
                     allLocked = false;
+                }
+            }
+            else{
+                for(int i = playerTurn + 1; i < totalPlayers; i++){
+                    if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
+                        playerTurn = i;
+                        break;
+                    }
                 }
             }
         }
@@ -111,7 +119,7 @@ public class Games {
     }
 
     public void setPlayerLocked(int playerNumber, int registerCount){
-        gamePlayers[playerNumber - 1].setLocked(registerCount, true);
+        gamePlayers[playerNumber].setLocked(registerCount, true);
 
         if(checkLocked()){
             allLocked = true;
@@ -120,7 +128,7 @@ public class Games {
 
             for(int i = 0; i < totalPlayers; i++){
                 if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
-                    playerTurn = i + 1;
+                    playerTurn = i;
                     break;
                 }
             }
