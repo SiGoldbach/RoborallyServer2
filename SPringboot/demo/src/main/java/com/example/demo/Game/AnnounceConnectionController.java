@@ -24,6 +24,8 @@ public class AnnounceConnectionController {
         // Data is hosting(true or false)-gamename-playerCount-username
         String[] dataArray = data.split("-");
 
+
+
         return gameCounter++;
     }
 }
