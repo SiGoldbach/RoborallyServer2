@@ -64,8 +64,9 @@ public class GameController {
         if(myGames[gameNumber].getGameName().equals(gameName)){
             Games myGame = myGames[gameNumber];
             switch(whatdo){
-                case "selectBoard":
-
+                case "uploadBoard":
+                    String boardJsonUpload = dataArray[4];
+                    myGame.setBoardJson(boardJsonUpload);
                 case "playturn":
                     String boardJson = dataArray[4];
 
