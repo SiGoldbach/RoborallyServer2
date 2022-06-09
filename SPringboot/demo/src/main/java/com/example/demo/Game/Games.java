@@ -17,6 +17,7 @@ public class Games {
 
     Games(int totalPlayers, String username, String gameName){
         gameName = this.gameName;
+        playerCounter = 0;
         gameLive = false;
         totalPlayers = this.totalPlayers;
         gamePlayers = new Player[totalPlayers];
