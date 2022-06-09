@@ -29,8 +29,8 @@ public class Games {
     }
 
     public void addPlayer(String username){
-        gamePlayers[playerCounter] = new Player(username);
         playerCounter++;
+        gamePlayers[playerCounter - 1] = new Player(username);
 
         if(playerCounter == totalPlayers){
             turnProgress = 0;
@@ -68,7 +68,7 @@ public class Games {
             returnString = "SUCCESS";
 
             for (int i = totalPlayers; i > -1; i--){
-                if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
+                if(gamePlayers[i - 1].getNumberOfRegisters() >= turnProgress){
                     playerWithRegister = i;
                     break;
                 }
@@ -80,7 +80,7 @@ public class Games {
                 boolean playerHas = false;
                 for (int i = 0; i < totalPlayers; i++){
                     if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
-                        playerTurn = i;
+                        playerTurn = i + 1;
                         playerHas = true;
                         break;
                     }
@@ -111,7 +111,7 @@ public class Games {
     }
 
     public void setPlayerLocked(int playerNumber, int registerCount){
-        gamePlayers[playerNumber].setLocked(registerCount, true);
+        gamePlayers[playerNumber - 1].setLocked(registerCount, true);
 
         if(checkLocked()){
             allLocked = true;
@@ -120,7 +120,7 @@ public class Games {
 
             for(int i = 0; i < totalPlayers; i++){
                 if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
-                    playerTurn = i;
+                    playerTurn = i + 1;
                     break;
                 }
             }
