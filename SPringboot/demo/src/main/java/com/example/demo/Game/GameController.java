@@ -17,7 +17,7 @@ public class GameController {
 
     private Games[] myGames = new Games[10];
 
-    @GetMapping(value="/connect")
+    @PostMapping(value="/connect")
     public String connectUser(@RequestBody String data) throws IOException, URISyntaxException {
         // Data is = hosting(true or false)-gamename-username-playercount
         String[] dataArray = data.split("-");
@@ -50,7 +50,7 @@ public class GameController {
         return returnString.toString();
     }
 
-    @GetMapping(value="/play")
+    @PostMapping(value="/play")
     public String playGame(@RequestBody String data){
         // Data is = gamename-gamenumber-playernumber-whatdo-bigdata
         String[] dataArray = data.split("-");
@@ -67,6 +67,7 @@ public class GameController {
                 case "uploadBoard":
                     String boardJsonUpload = dataArray[4];
                     myGame.setBoardJson(boardJsonUpload);
+                    returnString = "SUCCESS";
                 case "playturn":
                     String boardJson = dataArray[4];
 
