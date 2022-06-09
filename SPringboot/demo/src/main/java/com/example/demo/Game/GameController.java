@@ -25,25 +25,28 @@ public class GameController {
         String hosting = dataArray[0];
         String gameName = dataArray[1].toLowerCase();
         String userName = dataArray[2];
-        int returnNumber = -1;
+        int returnPlayerNumber = 99;
+        int returnTotalNumber = 99;
         if(hosting.equals("true")){
             int totalPlayers = Integer.parseInt(dataArray[3]);
             String json = dataArray[4];
 
             gameCounter++;
             myGames[gameCounter] = new Games(totalPlayers, userName, gameName, json);
-            returnNumber = 0;
+            returnPlayerNumber = 0;
+            returnTotalNumber = totalPlayers;
         }
         else{
-            for(int i = 0; i < gameCounter; i++){
+            for(int i = 0; i < gameCounter + 1; i++){
                 if(myGames[i].getGameName().equals(gameName)){
                     myGames[i].addPlayer(userName);
-                    returnNumber = myGames[i].getPlayerNumber();
+                    returnPlayerNumber = myGames[i].getPlayerNumber();
+                    returnTotalNumber = myGames[i].getTotalPlayers();
                 }
             }
         }
 
-        return gameCounter + "-" + returnNumber + "-" + myGames[gameCounter].getBoardJson();
+        return gameCounter + "-" + returnPlayerNumber + "-" + returnTotalNumber + "-" + myGames[gameCounter].getBoardJson();
     }
 
     @PostMapping(value="/play")

@@ -1,6 +1,7 @@
 package com.example.demo.Game;
 
 public class Games {
+
     private int totalPlayers;
     private int playerCounter;
 
@@ -144,5 +145,9 @@ public class Games {
 
     public String getBoardJson(){
         return boardJson;
+    }
+
+    public int getTotalPlayers() {
+        return totalPlayers;
     }
 }
