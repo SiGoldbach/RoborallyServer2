@@ -43,14 +43,7 @@ public class GameController {
             }
         }
 
-        StringBuilder returnString = new StringBuilder();
-        returnString.append(gameCounter);
-        returnString.append("-");
-        returnString.append(returnNumber);
-        returnString.append("-");
-        returnString.append(myGames[gameCounter].getBoardJson());
-
-        return returnString.toString();
+        return gameCounter + "-" + returnNumber + "-" + myGames[gameCounter].getBoardJson();
     }
 
     @PostMapping(value="/play")

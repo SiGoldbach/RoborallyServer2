@@ -4,7 +4,7 @@ public class Games {
     private int totalPlayers;
     private int playerCounter;
 
-    private String boardJson = "";
+    private String boardJson;
     private String playerPosJson = "";
 
     private String gameName;
