@@ -70,11 +70,7 @@ public class GameController {
                     returnString = "SUCCESS";
                 case "playturn":
                     String boardJson = dataArray[4];
-
-                    if(myGame.getAllLocked()){
-                        myGame.setBoardJson(boardJson);
-                        returnString = "SUCCESS";
-                    }
+                    myGame.playTurn(playerNumber, boardJson);
                     break;
                 case "refresh":
             }

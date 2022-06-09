@@ -10,12 +10,16 @@ public class Player {
         locked = false;
     }
 
-    public void setLocked(int numberOfRegisters){
-        numberOfRegisters = this.numberOfRegisters;
-        locked = true;
+    public void setLocked(int numberOfRegisters, boolean lockedData){
+        this.numberOfRegisters = numberOfRegisters;
+        locked = lockedData;
     }
 
     public boolean getLocked(){
         return locked;
+    }
+
+    public int getNumberOfRegisters(){
+        return numberOfRegisters;
     }
 }
