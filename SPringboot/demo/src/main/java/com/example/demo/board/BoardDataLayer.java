@@ -42,8 +42,6 @@ public class BoardDataLayer {
         } else {
             throw new IOException("Can't find the file ");
         }
-
-
     }
 
     public String jsonToString(String fileName) throws IOException, NullPointerException, URISyntaxException {
