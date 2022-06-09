@@ -6,7 +6,7 @@ public class Player {
     private boolean locked;
 
     Player(String username){
-        username = this.username;
+        this.username = username;
         locked = false;
     }
 

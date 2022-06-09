@@ -16,10 +16,10 @@ public class Games {
     private int turnProgress;
 
     Games(int totalPlayers, String username, String gameName){
-        gameName = this.gameName;
+        this.gameName = gameName;
         playerCounter = 0;
         gameLive = false;
-        totalPlayers = this.totalPlayers;
+        this.totalPlayers = totalPlayers;
         gamePlayers = new Player[totalPlayers];
 
         addPlayer(username);
