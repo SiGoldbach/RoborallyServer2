@@ -13,16 +13,13 @@ public class Games {
     private int playerTurn;
 
     private boolean allLocked;
-    private boolean gameLive;
     private int turnProgress;
     private int playerWithRegister;
 
-    private boolean boardUploaded;
-
     Games(int totalPlayers, String username, String gameName, String json){
         this.gameName = gameName;
+        turnProgress = -1;
         playerCounter = 0;
-        gameLive = false;
         boardJson = json;
         this.totalPlayers = totalPlayers;
         gamePlayers = new Player[totalPlayers];
@@ -34,8 +31,8 @@ public class Games {
         gamePlayers[playerCounter] = new Player(username);
         playerCounter++;
 
-        if(totalPlayers == playerCounter){
-            startGame();
+        if(playerCounter == totalPlayers){
+            turnProgress = 0;
         }
     }
 
@@ -65,7 +62,7 @@ public class Games {
     public String playTurn(int playerNumberTurn, String json){
         String returnString = "ERROR";
         if(playerNumberTurn == playerTurn){
-            boardJson = json;
+            playerPosJson = json;
 
             returnString = "SUCCESS";
 
@@ -129,12 +126,6 @@ public class Games {
         }
     }
 
-    private void startGame(){
-            gameLive = true;
-            turnProgress = -1;
-            allLocked = false;
-    }
-
     public int getPlayerNumber(){
         return playerCounter;
     }
@@ -151,20 +142,7 @@ public class Games {
         return gameName;
     }
 
-    public void setBoardJson(String json){
-        boardJson = json;
-    }
-
-    public void uploadBoardJson(String json){
-        setBoardJson(json);
-        boardUploaded = true;
-    }
-
     public String getBoardJson(){
         return boardJson;
-    }
-
-    public boolean getAllLocked(){
-        return allLocked;
     }
 }

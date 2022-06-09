@@ -68,8 +68,8 @@ public class GameController {
             Games myGame = myGames[gameNumber];
             switch(whatdo){
                 case "playturn":
-                    String boardJson = dataArray[4];
-                    returnString = myGame.playTurn(playerNumber, boardJson);
+                    String playerPos = dataArray[4];
+                    returnString = myGame.playTurn(playerNumber, playerPos);
                     break;
                 case "lock":
                     int registersToLock = Integer.parseInt(dataArray[4]);
