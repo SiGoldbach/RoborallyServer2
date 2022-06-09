@@ -19,7 +19,7 @@ public class GameController {
 
     @PostMapping(value="/connect")
     public String connectUser(@RequestBody String data) throws IOException, URISyntaxException {
-        // Data is = hosting(true or false)-gamename-username-playercount
+        // Data is = hosting(true or false)-gamename-username-playercount-boardjson
         String[] dataArray = data.split("-");
 
         String hosting = dataArray[0];
@@ -28,9 +28,10 @@ public class GameController {
         int returnNumber = -1;
         if(hosting.equals("true")){
             int totalPlayers = Integer.parseInt(dataArray[3]);
+            String json = dataArray[4];
 
             gameCounter++;
-            myGames[gameCounter] = new Games(totalPlayers, userName, gameName);
+            myGames[gameCounter] = new Games(totalPlayers, userName, gameName, json);
             returnNumber = 0;
         }
         else{
@@ -46,6 +47,8 @@ public class GameController {
         returnString.append(gameCounter);
         returnString.append("-");
         returnString.append(returnNumber);
+        returnString.append("-");
+        returnString.append(myGames[gameCounter].getBoardJson());
 
         return returnString.toString();
     }
@@ -57,22 +60,24 @@ public class GameController {
 
         String gameName = dataArray[0].toLowerCase();
         int gameNumber = Integer.parseInt(dataArray[1]);
-        String playerNumber = dataArray[2];
+        int playerNumber = Integer.parseInt(dataArray[2]);
         String whatdo = dataArray[3];
 
         String returnString = "ERROR";
         if(myGames[gameNumber].getGameName().equals(gameName)){
             Games myGame = myGames[gameNumber];
             switch(whatdo){
-                case "uploadBoard":
-                    String boardJsonUpload = dataArray[4];
-                    myGame.setBoardJson(boardJsonUpload);
-                    returnString = "SUCCESS";
                 case "playturn":
                     String boardJson = dataArray[4];
-                    myGame.playTurn(playerNumber, boardJson);
+                    returnString = myGame.playTurn(playerNumber, boardJson);
+                    break;
+                case "lock":
+                    int registersToLock = Integer.parseInt(dataArray[4]);
+                    myGame.setPlayerLocked(playerNumber, registersToLock);
                     break;
                 case "refresh":
+                    returnString = myGame.getGameState(playerNumber);
+                    break;
             }
         }
 

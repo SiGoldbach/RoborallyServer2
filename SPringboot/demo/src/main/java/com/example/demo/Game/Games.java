@@ -5,6 +5,7 @@ public class Games {
     private int playerCounter;
 
     private String boardJson = "";
+    private String playerPosJson = "";
 
     private String gameName;
     private Player[] gamePlayers;
@@ -18,11 +19,11 @@ public class Games {
 
     private boolean boardUploaded;
 
-    Games(int totalPlayers, String username, String gameName){
+    Games(int totalPlayers, String username, String gameName, String json){
         this.gameName = gameName;
         playerCounter = 0;
         gameLive = false;
-        boardUploaded = false;
+        boardJson = json;
         this.totalPlayers = totalPlayers;
         gamePlayers = new Player[totalPlayers];
 
@@ -36,6 +37,29 @@ public class Games {
         if(totalPlayers == playerCounter){
             startGame();
         }
+    }
+
+    public String getGameState(int playerIdRequest){
+        // returns playstate-playerpositions
+        String playstate = "";
+
+        if(playerCounter < totalPlayers){
+            playstate = "WaitingForPlayersToConnect";
+        }
+        else if(!gamePlayers[playerIdRequest].getLocked()){
+            playstate = "WaitingForYouToLock";
+        }
+        else if(!checkLocked()){
+            playstate = "WaitingForOthersToLock";
+        }
+        else if(playerTurn == playerIdRequest){
+            playstate = "WaitingForYouToPlayTurn";
+        }
+        else if(playerTurn != playerIdRequest){
+            playstate = "WaitingForOthersToPlayTurn";
+        }
+
+        return playstate + playerPosJson;
     }
 
     public String playTurn(int playerNumberTurn, String json){
@@ -76,8 +100,7 @@ public class Games {
         return returnString;
     }
 
-    public void setPlayerLocked(int playerNumber, int registerCount){
-        gamePlayers[playerNumber].setLocked(registerCount, true);
+    private boolean checkLocked(){
         boolean lockFlag = true;
 
         for(int i = 0; i < totalPlayers; i++){
@@ -86,7 +109,15 @@ public class Games {
             }
         }
 
-        if(lockFlag){
+        return lockFlag;
+    }
+
+    public void setPlayerLocked(int playerNumber, int registerCount){
+        gamePlayers[playerNumber].setLocked(registerCount, true);
+
+        if(checkLocked()){
+            allLocked = true;
+
             turnProgress = 0;
 
             for(int i = 0; i < totalPlayers; i++){
@@ -96,20 +127,24 @@ public class Games {
                 }
             }
         }
-
-        allLocked = lockFlag;
     }
 
     private void startGame(){
-        if(boardUploaded){
             gameLive = true;
             turnProgress = -1;
             allLocked = false;
-        }
     }
 
     public int getPlayerNumber(){
         return playerCounter;
+    }
+
+    public void setPlayerPosJson(String json){
+        playerPosJson = json;
+    }
+
+    public String getPlayerPosJson(){
+        return playerPosJson;
     }
 
     public String getGameName(){
