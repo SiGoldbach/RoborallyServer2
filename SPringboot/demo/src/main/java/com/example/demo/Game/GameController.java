@@ -54,14 +54,13 @@ public class GameController {
         // Data is = gamename-gamenumber-playernumber-whatdo-bigdata
         String[] dataArray = data.split("-");
 
-        String gameName = dataArray[0].toLowerCase();
-        int gameNumber = Integer.parseInt(dataArray[1]);
-        int playerNumber = Integer.parseInt(dataArray[2]);
-        String whatdo = dataArray[3];
+        int gameNumber = Integer.parseInt(dataArray[0]);
+        int playerNumber = Integer.parseInt(dataArray[1]);
+        String whatdo = dataArray[2];
 
         String returnString = "ERROR";
-        if(myGames[gameNumber].getGameName().equals(gameName)){
-            Games myGame = myGames[gameNumber];
+
+        Games myGame = myGames[gameNumber];
             switch(whatdo){
                 case "playturn":
                     String playerPos = dataArray[4];
@@ -75,8 +74,6 @@ public class GameController {
                     returnString = myGame.getGameState(playerNumber);
                     break;
             }
-        }
-
         return returnString;
     }
 }
