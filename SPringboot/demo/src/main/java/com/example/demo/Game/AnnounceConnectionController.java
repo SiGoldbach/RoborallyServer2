@@ -14,19 +14,41 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class AnnounceConnectionController {
 
-    private int counter = 0;
     private int gameCounter = -1;
 
     private Games[] myGames = new Games[10];
 
     @GetMapping(value="/games/{name}")
-    public int saveUser(@RequestBody String data, @PathVariable String name) throws IOException, URISyntaxException {
-        // Data is hosting(true or false)-gamename-playerCount-username
+    public String saveUser(@RequestBody String data, @PathVariable String name) throws IOException, URISyntaxException {
+        // Data is hosting(true or false)-gamename-username-playercount
         String[] dataArray = data.split("-");
 
+        String hosting = dataArray[0];
+        String gameName = dataArray[1].toLowerCase();
+        String userName = dataArray[2];
+        int returnNumber = -1;
+        if(hosting.equals("true")){
+            int totalPlayers = Integer.parseInt(dataArray[3]);
 
+            gameCounter++;
+            myGames[gameCounter] = new Games(totalPlayers, userName, gameName);
+            returnNumber = 0;
+        }
+        else{
+            for(int i = 0; i < gameCounter; i++){
+                if(myGames[i].getGameName().equals(gameName)){
+                    myGames[i].addPlayer(userName);
+                    returnNumber = myGames[i].getPlayerNumber();
+                }
+            }
+        }
 
-        return gameCounter++;
+        StringBuilder returnString = new StringBuilder();
+        returnString.append(gameCounter);
+        returnString.append("-");
+        returnString.append(returnNumber);
+
+        return returnString.toString();
     }
 }
 

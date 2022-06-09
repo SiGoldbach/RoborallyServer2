@@ -11,6 +11,7 @@ public class Games {
 
     private boolean allLocked;
     private boolean gameLive;
+    private boolean turnInProgress;
 
     Games(int totalPlayers, String username, String gameName){
         gameName = this.gameName;
@@ -21,7 +22,7 @@ public class Games {
         addPlayer(username);
     }
 
-    private void addPlayer(String username){
+    public void addPlayer(String username){
         gamePlayers[playerCounter] = new Player(username);
         playerCounter++;
 
@@ -49,5 +50,9 @@ public class Games {
 
     public int getPlayerNumber(){
         return playerCounter;
+    }
+
+    public String getGameName(){
+        return gameName;
     }
 }
