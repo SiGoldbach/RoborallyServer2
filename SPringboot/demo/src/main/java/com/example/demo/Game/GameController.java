@@ -33,7 +33,7 @@ public class GameController {
 
             gameCounter++;
             myGames[gameCounter] = new Games(totalPlayers, userName, gameName, json);
-            returnPlayerNumber = 0;
+            returnPlayerNumber = 1;
             returnTotalNumber = totalPlayers;
         }
         else{
