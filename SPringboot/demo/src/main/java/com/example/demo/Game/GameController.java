@@ -78,6 +78,24 @@ public class GameController {
             }
         return returnString;
     }
+
+    @GetMapping(value="/games")
+    public String playGame(){
+        
+        String returnString = "";
+
+        for(int i = 0; i < gameCounter; i++){
+            if(i == (gameCounter - 1)){
+                returnString = returnString + myGames[i].getGameName();
+            }
+            else{
+                returnString = returnString + myGames[i].getGameName() + "-";
+            }
+        }
+
+
+        return returnString;
+    }
 }
 
 
