@@ -68,7 +68,7 @@ public class Games {
             returnString = "SUCCESS";
 
             for (int i = totalPlayers - 1; i > -1; i--){
-                if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
+                if(gamePlayers[i].getNumberOfRegisters() >= turnProgress + 1){
                     playerWithRegister = i;
                     break;
                 }
@@ -79,7 +79,7 @@ public class Games {
 
                 boolean playerHas = false;
                 for (int i = 0; i < totalPlayers; i++){
-                    if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
+                    if(gamePlayers[i].getNumberOfRegisters() >= turnProgress + 1){
                         playerTurn = i;
                         playerHas = true;
                         break;
@@ -95,7 +95,7 @@ public class Games {
             }
             else{
                 for(int i = playerTurn + 1; i < totalPlayers; i++){
-                    if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
+                    if(gamePlayers[i].getNumberOfRegisters() >= turnProgress + 1){
                         playerTurn = i;
                         break;
                     }
@@ -127,7 +127,7 @@ public class Games {
             turnProgress = 0;
 
             for(int i = 0; i < totalPlayers; i++){
-                if(gamePlayers[i].getNumberOfRegisters() >= turnProgress){
+                if(gamePlayers[i].getNumberOfRegisters() >= turnProgress + 1){
                     playerTurn = i;
                     break;
                 }
