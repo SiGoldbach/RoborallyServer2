@@ -81,10 +81,10 @@ public class GameController {
 
     @GetMapping(value="/games")
     public String playGame(){
-        
+
         String returnString = "";
 
-        for(int i = 0; i < gameCounter; i++){
+        for(int i = 0; i < gameCounter + 1; i++){
             if(i == (gameCounter - 1)){
                 returnString = returnString + myGames[i].getGameName();
             }
@@ -94,6 +94,7 @@ public class GameController {
         }
 
 
+        System.out.println("Games : " + returnString);
         return returnString;
     }
 }
