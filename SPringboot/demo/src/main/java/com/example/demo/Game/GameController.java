@@ -85,12 +85,7 @@ public class GameController {
         String returnString = "";
 
         for(int i = 0; i < gameCounter + 1; i++){
-            if(i == (gameCounter - 1)){
-                returnString = returnString + myGames[i].getGameName();
-            }
-            else{
-                returnString = returnString + myGames[i].getGameName() + "-";
-            }
+            returnString = returnString + myGames[i].getGameName() + "-";
         }
 
 
